@@ -57,14 +57,10 @@ public class ScalableVideoView extends TextureView implements TextureView.Surfac
     }
 
     @Override
-    public Rect getSurfaceFrame() {
-      return frame;
-    }
-
-    @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture, int width, int height) {
         Surface surface = new Surface(surfaceTexture);
         if (mMediaPlayer != null) {
+            mMediaPlayer.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT);
             mMediaPlayer.setSurface(surface);
         }
         frame.set( 0, 0, width, height );
