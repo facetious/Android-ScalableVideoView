@@ -28,6 +28,8 @@ public class ScalableVideoView extends TextureView implements TextureView.Surfac
     protected MediaPlayer mMediaPlayer;
     protected ScalableType mScalableType = ScalableType.NONE;
 
+    private final Rect frame = new Rect( 0, 0, 0, 0 );
+
     public ScalableVideoView(Context context) {
         this(context, null);
     }
@@ -54,15 +56,22 @@ public class ScalableVideoView extends TextureView implements TextureView.Surfac
     }
 
     @Override
+    public Rect getSurfaceFrame() {
+      return frame;
+    }
+
+    @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture, int width, int height) {
         Surface surface = new Surface(surfaceTexture);
         if (mMediaPlayer != null) {
             mMediaPlayer.setSurface(surface);
         }
+        frame.set( 0, 0, width, height );
     }
 
     @Override
     public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
+        frame.set( 0, 0, width, height );
     }
 
     @Override
